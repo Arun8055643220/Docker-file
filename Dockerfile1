@@ -1,0 +1,18 @@
+FROM centos:latest
+
+#MAINTAINER Arun mutkuke
+
+RUN yum update -y
+
+RUN mkdir /opt/tomcat/
+RUN yum install wget -y
+RUN wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.36/bin/apache-tomcat-9.0.36.tar.gz 
+RUN tar xvf apache-tomcat-9.0.36.tar.gz
+RUN mv apache-tomcat-9.0.36/* /opt/tomcat/
+
+RUN yum install java-1.8.0-openjdk -y
+#RUN yum install java-1.8.0-amazon-corretto8
+RUN java -version
+WORKDIR /opt/tomcat/webapps/
+EXPOSE 8080
+CMD [ "/opt/tomcat/bin/catalina.sh", "run" ]
